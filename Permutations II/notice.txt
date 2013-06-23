@@ -1,0 +1,2 @@
+you need to find a more effective algorithm to solve this problem
+the time consuming is not good enouge

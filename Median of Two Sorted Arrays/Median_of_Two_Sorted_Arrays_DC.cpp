@@ -9,11 +9,11 @@ class Solution {
 public:
     double findMedianSortedArrays(int A[], int m, int B[], int n)
 	{
-		if (m == 0) return getMedian(B, n);
-		if (n == 0) return getMedian(A, m);
-
 		vector<int> a(A, A + m);
 		vector<int> b(B, B + n);
+		if (m == 0) return getMedian(b);
+		if (n == 0) return getMedian(a);
+
 		return findMedianSortedArrays_impl(a, 0, a.size()-1, b, 0, b.size()-1);
 	}
 
@@ -28,7 +28,7 @@ public:
 
 			while (as <= ae) vec.push_back(a[as++]);
 			while (bs <= be) vec.push_back(b[bs++]);
-			
+
 			return vec.size()%2? vec[vec.size()/2]: (vec[vec.size()/2-1]+vec[vec.size()/2])/2.0;
 		}
 
@@ -61,8 +61,10 @@ public:
 		}
 	}
 
-	double getMedian(int array[], int n)
+	double getMedian(vector<int>& vec)
 	{
-		return (n%2)? array[n/2]: (array[n/2-1] + array[n/2]) / 2.0;
+		int n = vec.size();
+		return (n%2)? vec[n/2]: (vec[n/2-1] + vec[n/2]) / 2.0;
 	}
 };
+
