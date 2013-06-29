@@ -95,3 +95,69 @@ private:
 
 	vector<vector<char>> board_;
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// First Missing Positive :
+class Solution {
+public:
+	int firstMissingPositive(int A[], int n)
+	{
+		for (int i = 0; i < n; ++i) {
+			if (A[i] <= 0) A[i] = INT_MIN;
+		}
+
+		for (int i = 0; i < n; ++i) {
+			if (A[i] == INT_MIN) continue;
+			else if (A[i] > 0 && A[i] <= n) {
+				if (A[A[i]-1] < 0 && A[A[i]-1] != INT_MIN) continue;
+				A[A[i]-1] = -A[A[i]-1];
+			} else if (A[i] < 0 && -A[i] <= n) {
+				if (A[-A[i]-1] < 0 && A[-A[i]-1] != INT_MIN) continue;
+				A[-A[i]-1] = -A[-A[i]-1];
+			}
+		}
+
+		for (int i = 0; i < n; ++i) {
+			if (A[i] > 0 || A[i] == INT_MIN) return i+1;
+		}
+	}          
+
+};
+
+int main()
+{
+	int A[] = {1,2,0};
+
+	Solution solve;
+	int ret = solve.firstMissingPositive(A, sizeof(A)/sizeof(A[0]));
+
+	getchar();
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
