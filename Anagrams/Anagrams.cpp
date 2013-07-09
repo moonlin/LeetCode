@@ -21,6 +21,7 @@ public:
 		std::map<std::string, std::vector<std::string>>::iterator iter;
 		for (iter = keyValue.begin(); iter != keyValue.end(); ++iter) {
 			if (iter->second.size() <= 1) continue;
+			
 			retVec.insert(retVec.end(), iter->second.begin(), iter->second.end());
 		}
 
