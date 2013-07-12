@@ -7,19 +7,12 @@ design an algorithm to find the maximum profit.
 
 **************************/
 
-#include <iostream>
-#include <vector>
-#include <string>
-#include <fstream>
-#include <queue>
-#include <map>
-
 using namespace std;
 typedef unsigned int uint;
 
 class Solution {
 public:
-	int maxProfit(vector<int> &prices) 
+	int maxProfit(vector<int>& prices) 
 	{
 		if (prices.empty()) {
 			return 0;
@@ -29,7 +22,7 @@ public:
 		return dc(prices, 0, prices.size()-1, max, min);
 	}
 
-	int dc(vector<int> &prices, int s, int e, int& max, int& min)
+	int dc(vector<int>& prices, int s, int e, int& max, int& min)
 	{
 		if (s >= e) {
 			max = min = prices[s];
