@@ -60,7 +60,7 @@ public:
 					std::string tmpElem(elem);
 					for (int j = 0; j < 'z'-'a' + 1; ++j) {
 						tmpElem[i] = 'a' + j;
-						if (dict.find(tmpElem) != dict.end() 
+						if (dict.find(tmpElem) != dict.end()
 										&& visited.find(tmpElem) == visited.end()) 
 						{
 							visited.insert(tmpElem);
@@ -92,4 +92,3 @@ public:
 private:
 	std::unordered_set<string> visited;
 };
-
