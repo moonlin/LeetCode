@@ -17,10 +17,15 @@ public:
 	double pow_impl(double x, int n)
 	{
 		if (n == 0) return 1.0;
-		if (n < 0) return pow_impl(1/x, -n);
+		if (n < 0) {
+			x = 1/x;
+			n = -n;
+		}
 
-		// return x * pow(x, n-1);
-		if (n % 2) return x * pow_impl(x, n-1);
-		else return pow_impl(x*x, n/2);
+		double ret = 1;
+		uint loop = (uint)n;
+		for (uint i = 0; i < loop; ++i) ret *= x;
+
+		return ret;
 	}          
 };

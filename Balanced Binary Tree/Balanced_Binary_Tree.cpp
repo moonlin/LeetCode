@@ -32,8 +32,8 @@ public:
 			return true;
 		}
 
-		long tmp;
-		return traverse(root, tmp);
+		long depth;
+		return traverse(root, depth);
 	}
 
 	bool traverse(TreeNode* node, long& height) 
