@@ -17,9 +17,9 @@ public:
 		ListNode* head = 0;
 		int carry = 0;
 		while (a && b) {
-			int node = a->val + b->val + carry;
-			ListNode* ptmp = new ListNode(node%10);
-			carry = (node > 9? 1: 0);
+			carry = a->val + b->val + carry;
+			ListNode* ptmp = new ListNode(carry%10);
+			carry /= 10;
 
 			!pLink? (pLink = ptmp, head = pLink): (pLink->next = ptmp, pLink = ptmp);
 			a = a->next;
@@ -27,11 +27,10 @@ public:
 		}
 
 		const ListNode* ptr = a? a: b;
-
 		while (ptr) {
-			int node = ptr->val + carry;
-			ListNode* ptmp = new ListNode(node%10);
-			carry = (node > 9? 1: 0);
+			carry = ptr->val + carry;
+			ListNode* ptmp = new ListNode(carry%10);
+			carry /= 10;
 			!pLink? (pLink = ptmp, head = pLink): (pLink->next = ptmp, pLink = ptmp);
 			ptr = ptr->next;
 		}

@@ -1,4 +1,4 @@
-/******************************************
+/**************************************************************************
 
 Given a binary tree, flatten it to a linked list in-place.
 
@@ -25,20 +25,10 @@ The flattened tree should look like:
             \
              6
 Hints:
-If you notice carefully in the flattened tree, each node's right child points to the next node of a pre-order traversal.
+If you notice carefully in the flattened tree, 
+each node's right child points to the next node of a pre-order traversal.
 
-******************************************/
-
-
-#include <iostream>
-#include <vector>
-#include <string>
-#include <fstream>
-#include <queue>
-#include <map>
-
-using namespace std;
-typedef unsigned int uint;
+**************************************************************************/
 
 struct TreeNode {
 	int val;
@@ -49,7 +39,7 @@ struct TreeNode {
 
 class Solution {
 public:
-    void flatten(TreeNode *root) 
+    void flatten(TreeNode* root) 
 	{
 		if (root == 0) return;
 		
@@ -79,30 +69,26 @@ public:
 		return root;
 	}
 
+	// more clearly
+	TreeNode* preNode2(TreeNode* node)
+	{
+		if (node == 0) return 0;
+
+		TreeNode* root = node;
+		for (; node->left == 0 && node->right; node = node->right);
+
+		if (node->left == 0 && node->right == 0) return root;
+
+		TreeNode* pLeft = preNode(node->left);
+		TreeNode* pRight = preNode(node->right);
+
+		node->left = 0;
+		node->right = pLeft;
+		for (; node->right; node = node->right);
+
+		node->right = pRight;
+
+		return root;
+	}
+
 };
-
-
-int main()
-{	
-	TreeNode* root;
-
-	TreeNode* node1 = new TreeNode(4);
-	TreeNode* node2 = new TreeNode(1);
-	TreeNode* node3 = new TreeNode(3);
-	TreeNode* node4 = new TreeNode(2);
-
-	node1->left = node2;
-	node2->right = node3;
-	node3->left = node4;
-
-	root = node1;
-
-	Solution solve;
-	solve.flatten(root);
-
-	//std::cout <<"ret == " <<ret <<'\n';
-
-	getchar();
-	return 0;
-}
-

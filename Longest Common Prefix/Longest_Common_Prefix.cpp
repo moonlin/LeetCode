@@ -4,17 +4,9 @@ Write a function to find the longest common prefix string amongst an array of st
 
 ******************************************/
 
-#include <vector>
-#include <string>
-#include <stack>
-#include <algorithm>
-
-using namespace std;
-typedef unsigned int uint;
-
 class Solution {
 public:
-	string longestCommonPrefix(vector<string>& strs)
+	std::string longestCommonPrefix(std::vector<std::string>& strs)
 	{
 		if (strs.empty()) return "";
 
@@ -30,7 +22,7 @@ public:
 		return strs[0].substr(0, maxLen);
 	}
 
-	uint compare(const string& s1, const string& s2, int maxLen)
+	uint compare(const std::string& s1, const std::string& s2, int maxLen)
 	{
 		for (int i = 0; i < maxLen; ++i) {
 			if (s1[i] != s2[i]) return i;

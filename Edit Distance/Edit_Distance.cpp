@@ -1,4 +1,4 @@
-/*********************************************************
+/*****************************************************************
 
 Given two words word1 and word2, find the minimum number of steps 
 required to convert word1 to word2. 
@@ -10,36 +10,35 @@ a) Insert a character
 b) Delete a character
 c) Replace a character
 
-*********************************************************/
+*****************************************************************/
 
 class Solution {
 public:
     int minDistance(std::string& word1, std::string& word2)
 	{
 		if (word1.empty() && word2.empty()) return 0;
-		if (word1.empty() || word2.empty()) return 1;
+
+		if (word1.empty()) return word2.size();
+        if (word2.empty()) return word1.size();
 
 		std::vector<std::vector<int>> dp(word1.size(), std::vector<int>(word2.size(), 0));
-		if (word1[0] != word2[0]) dp[0][0] = 1;
 
-		int flag = dp[0][0]==1? false: true;
-		for (uint i = 1; i < word1.size(); ++i) {
-			if (word1[i] == word2[0] && !flag) {
-				dp[i][0] = dp[i-1][0];
-				flag = true;
-			} else {
-				dp[i][0] = dp[i-1][0] + 1;
-			}
+		bool matchedFlag = false;
+		for (uint i = 0; i < word1.size(); ++i) {
+			if (word1[i] == word2[0] || matchedFlag) {
+				dp[i][0] = i;
+				matchedFlag = true;
+
+			} else dp[i][0] = i+1;
 		}
 
-		flag = dp[0][0]==1? false: true;
-		for (uint j = 1; j < word2.size(); ++j) {
-			if (word1[0] == word2[j] && !flag) {
-				dp[0][j] = dp[0][j-1];
-				flag = true;
-			} else {
-				dp[0][j] = dp[0][j-1] + 1;
-			}
+		matchedFlag = false;
+		for (uint j = 0; j < word2.size(); ++j) {
+			if (word1[0] == word2[j] || matchedFlag) {
+				dp[0][j] = j;
+				matchedFlag = true;
+
+			} else dp[0][j] = j+1;
 		}
 
 		for (uint i = 1; i < word1.size(); ++i) {

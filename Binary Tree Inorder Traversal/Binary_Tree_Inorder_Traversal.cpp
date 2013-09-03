@@ -16,16 +16,6 @@ Note: Recursive solution is trivial, could you do it iteratively?
 
 *******************************/
 
-#include <iostream>
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-typedef unsigned int uint;
-
 struct TreeNode {
 	int val;
 	TreeNode *left;
@@ -40,7 +30,7 @@ public:
 		if (root == 0) return vector<int> ();
 
 		TreeNode* pNode = root;
-		std::vector<int> treeNdoe;
+		std::vector<int> treeNode;
 		std::stack<TreeNode*> treeStack;
 
 		do {
@@ -50,7 +40,7 @@ public:
 		while (!treeStack.empty()) {
 			pNode = treeStack.top();
 			treeStack.pop();
-			treeNdoe.push_back(pNode->val);
+			treeNode.push_back(pNode->val);
 			if (pNode->right) {
 				pNode = pNode->right;
 				treeStack.push(pNode);
@@ -61,7 +51,7 @@ public:
 			}
 		}
 
-		return treeNdoe;
+		return treeNode;
 	}
 };
 

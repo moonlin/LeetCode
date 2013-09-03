@@ -11,17 +11,9 @@ Although the above answer is in lexicographical order, your answer could be in a
 
 *********************************************/
 
-#include <vector>
-#include <string>
-#include <stack>
-#include <algorithm>
-
-using namespace std;
-typedef unsigned int uint;
-
 class Solution {
 public:
-	vector<string> letterCombinations(string& digits)
+	std::vector<std::string> letterCombinations(std::string& digits)
 	{
 		letterVec.clear();
 		string tmpStr;
@@ -30,7 +22,7 @@ public:
 		return letterVec;
 	}
 
-	void letterCombinations_impl(string& digits, int pos, string letter)
+	void letterCombinations_impl(std::string& digits, int pos, std::string& letter)
 	{
 		if (pos >= digits.size()) {
 			letterVec.push_back(letter);
@@ -81,7 +73,7 @@ public:
 	}
 
 private:
-	vector<string> letterVec;
+	std::vector<std::string> letterVec;
 };
 
 int main()

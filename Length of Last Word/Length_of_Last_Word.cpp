@@ -15,7 +15,7 @@ return 5.
 
 class Solution {
 public:
-    int lengthOfLastWord(const char *s)
+    int lengthOfLastWord(const char* s)
 	{
 		std::string str(s);
 		std::string::size_type pos = str.find_last_not_of(" ");

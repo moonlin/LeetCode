@@ -6,49 +6,31 @@ exists one unique longest palindromic substring.
 
 **********************************/
 
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-
-typedef unsigned int uint;
-
-#include <vector>
-#include <string>
-#include <stack>
-#include <algorithm>
-
-using namespace std;
-typedef unsigned int uint;
-
 class Solution {
 public:
 	std::string longestPalindrome(const string& str)
 	{
 		if (str.size() == 0 || str.size() == 1) return str;
 
-		int max = 0;
+		int gmax = 0;
 		int max_s = 0;
-		for (int i = 1; i < str.size(); ++i) {
+		for (uint i = 1; i < str.size(); ++i) {
 			int len = 0;
 			int pos = countPalindrome(str, i-1, i, len);
-			if (max < len) {
-				max = len;
-				max_s = pos+1;
+			if (gmax < len) {
+				gmax = len;
+				max_s = pos;
 			}
 
 			pos = countPalindrome(str, i-1, i+1, len);
-			if (max < len) {
-				max = len;
-				max_s = pos+1;
+			if (gmax < len) {
+				gmax = len;
+				max_s = pos;
 			}
 
 		}
 
-		return str.substr(max_s, max);
+		return str.substr(max_s, gmax);
 	}
 
 	int countPalindrome(const string& str, int s, int e, int& len)
@@ -61,12 +43,51 @@ public:
 			}
 
 			len = e-s-1;
-			return s;
+			return s+1;
 		}
 
 		len = e-s-1;
-		return s;
+		return s+1;
 	}
+
+	// Time Limit Exceeded...
+	std::string longestPalindrome(const string& str)
+	{
+		if (str.size() == 0 || str.size() == 1) return str;
+
+		int gmax = 0;
+		int max_s = 0;
+		std::vector<std::vector<bool>> dp(str.size(), std::vector<bool> (str.size(), false));
+		for (uint k = 0; k < 2; ++k) {
+			for (uint i = 0; i < str.size(); ++i) {
+				if (str[i] == str[i+k]) {
+					dp[i][i+k] = true;
+					if (gmax < (i+k - i + 1)) {
+						gmax = (i+k - i + 1);
+						max_s = i;
+					}
+				}
+			}
+		}
+
+		for (uint k = 2; k < str.size(); ++k) {
+			for (uint i = 0; i < str.size()-k; ++i) {
+				if (str[i] == str[i+k]) {
+					dp[i][i+k] = dp[i+1][i+k-1];
+					if (dp[i][i+k] && gmax < (k+1)) {
+						gmax = k+1;
+						max_s = i;
+					}
+
+				} else {
+					dp[i][i+k] = false;
+				}
+			}
+		}
+
+		return str.substr(max_s, gmax); 
+	}
+
 };
 
 int main()

@@ -1,6 +1,7 @@
-/*****************************************
+/***************************************************************
 
-Given two integers n and k, return all possible combinations of k numbers out of 1 ... n.
+Given two integers n and k, 
+return all possible combinations of k numbers out of 1 ... n.
 
 For example,
 If n = 4 and k = 2, a solution is:
@@ -14,20 +15,20 @@ If n = 4 and k = 2, a solution is:
   [1,4],
 ]
 
-*****************************************/
+***************************************************************/
 
 class Solution {
 public:
-    vector<vector<int>> combine(int n, int k)
+    std::vector<std::vector<int>> combine(int n, int k)
 	{
 		ret.clear();
-		vector<int> seqK;
+		std::vector<int> seqK;
 		this->combine_impl(n, 1, k, seqK);
 
 		return ret;
 	}
 
-	void combine_impl(int n, int pos, int k, vector<int>& seqK)
+	void combine_impl(int n, int pos, int k, std::vector<int>& seqK)
 	{
 		if (pos > n && k > 0) return;
 		if (k == 0) {
@@ -35,7 +36,7 @@ public:
 			return;
 		}
 
-		for (int i = pos; i <= n; ++i) {
+		for (int i = pos; i <= n-k+1; ++i) { //sikp some ops
 			seqK.push_back(i);
 			combine_impl(n, i+1, k-1, seqK);
 			seqK.pop_back();
@@ -43,5 +44,5 @@ public:
 	}
 
 private:
-	vector<vector<int>> ret;
+	std::vector<std::vector<int>> ret;
 };

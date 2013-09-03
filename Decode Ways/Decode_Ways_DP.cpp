@@ -1,52 +1,36 @@
-/***************************************
+/**************************************************************************
 
-A message containing letters from A-Z is being encoded to numbers using the following mapping:
+A message containing letters from A-Z is being encoded to numbers 
+using the following mapping:
 
 'A' -> 1
 'B' -> 2
 ...
 'Z' -> 26
-Given an encoded message containing digits, determine the total number of ways to decode it.
+Given an encoded message containing digits, 
+determine the total number of ways to decode it.
 
 For example,
 Given encoded message "12", it could be decoded as "AB" (1 2) or "L" (12).
 
 The number of ways decoding "12" is 2.
 
-***************************************/
-
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-
-typedef unsigned int uint;
+**************************************************************************/
  
 class Solution {
 public:
 	int numDecodings(const string& str)
 	{
-		if (str.empty()) return 0;                
+		if (str.empty()) return 0;
 
 		vector<int> dp(str.size(), 0);
-		if (str[0] != '0') {
-			dp[0] = 1;
-		}
+		if (str[0] != '0') dp[0] = 1;
+		if (valid(str, 0)) dp[1] += 1;
+		if (str[1] != '0') dp[1] += dp[0];
 
-		for (uint i = 1; i < str.size(); ++i) {
-			int total = 0;
-			if (valid(str, i-1)) {
-				total += i>1? dp[i-2]: 1;
-				dp[i] = total;
-			}
-
-			if (str[i] == '0') continue;
-
-			total += dp[i-1];
-			dp[i] = total;
+		for (uint i = 2; i < str.size(); ++i) {
+			if (valid(str, i-1)) dp[i] += dp[i-2];
+			if (str[i] != '0') dp[i] += dp[i-1];
 		}
 
 		return dp[str.size()-1];

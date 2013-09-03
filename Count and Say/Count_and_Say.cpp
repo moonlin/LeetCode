@@ -1,4 +1,4 @@
-/*******************************************
+/***************************************************************************
 
 The count-and-say sequence is the sequence of integers beginning as follows:
 1, 11, 21, 1211, 111221, ...
@@ -11,7 +11,7 @@ Given an integer n, generate the nth sequence.
 
 Note: The sequence of integers will be represented as a string.
 
-*******************************************/
+***************************************************************************/
 
 class Solution {
 public:
@@ -34,7 +34,7 @@ public:
 			}
 
 			tmp.push_back(count+'0');
-			tmp.push_back(say[say.size()-1]);
+			tmp.push_back(say.back());
 
 			say.swap(tmp);
 		}

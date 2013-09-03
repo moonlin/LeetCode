@@ -1,21 +1,11 @@
-/***********************************************
+/*********************************************************************************
 
 Given a binary tree, determine if it is height-balanced.
 
-For this problem, a height-balanced binary tree is defined as a binary tree in which 
-the depth of the two subtrees of every node never differ by more than 1.
+For this problem, a height-balanced binary tree is defined as a binary tree 
+in which the depth of the two subtrees of every node never differ by more than 1.
 
-***********************************************/
-
-#include <iostream>
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <cmath>
-
-using namespace std;
-typedef unsigned int uint;
+*********************************************************************************/
 
 struct TreeNode {
 	int val;
@@ -58,32 +48,7 @@ public:
 		}
 
 		height = std::max(lHeight, rHeight) + 1;
-		return abs(lHeight-rHeight) == 0 || abs(lHeight-rHeight) == 1;
+		return abs(lHeight-rHeight) < 2;
 	}
 };
-
-
-int main()
-{	
-	TreeNode* root;
-
-	TreeNode* node1 = new TreeNode(1);
-	TreeNode* node2 = new TreeNode(2);
-	TreeNode* node3 = new TreeNode(3);
-	TreeNode* node4 = new TreeNode(2);
-
-	node1->right = node2;
-	node2->right = node3;
-	node3->left = node4;
-
-	root = node1;
-
-	Solution solve;
-	bool ret = solve.isBalanced(root);
-
-	std::cout <<"ret == " <<ret <<'\n';
-
-	getchar();
-	return 0;
-}
 

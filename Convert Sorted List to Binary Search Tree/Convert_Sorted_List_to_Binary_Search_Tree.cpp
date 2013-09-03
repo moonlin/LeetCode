@@ -1,18 +1,9 @@
-/********************************************
+/**************************************************************************
 
-Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
+Given a singly linked list where elements are sorted in ascending order, 
+convert it to a height balanced BST.
 
-********************************************/
-
-#include <iostream>
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-typedef unsigned int uint;
+**************************************************************************/
 
 struct ListNode {
 	int val;
@@ -29,7 +20,7 @@ struct TreeNode {
 
 class Solution {
 public:
-	TreeNode* sortedListToBST(ListNode *head)
+	TreeNode* sortedListToBST(ListNode* head)
 	{
 		if (head == 0) return 0;
 
@@ -44,14 +35,13 @@ public:
 			return pRoot;
 		}
 
-		ListNode* pLeft = head;
 		uint numNode = 0;
-		while (pLeft->next) {
+		ListNode* pLeft = head;
+		while (pLeft) {
 			pLeft = pLeft->next;
 			++numNode;
 		}
 
-		++numNode;
 		pLeft = head;
 		for (uint i = 0; i < numNode/2 - 1; ++i) {
 			pLeft = pLeft->next;

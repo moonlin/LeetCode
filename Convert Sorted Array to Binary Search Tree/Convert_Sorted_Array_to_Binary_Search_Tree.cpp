@@ -1,18 +1,9 @@
-/***************************
+/************************************************************
 
-Given an array where elements are sorted in ascending order, convert it to a height balanced BST.
+Given an array where elements are sorted in ascending order, 
+convert it to a height balanced BST.
 
-***************************/
-
-#include <iostream>
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-typedef unsigned int uint;
+************************************************************/
 
 struct TreeNode {
 	int val;
@@ -24,7 +15,7 @@ struct TreeNode {
 
 class Solution {
 public:
-	TreeNode* sortedArrayToBST(vector<int>& num)
+	TreeNode* sortedArrayToBST(std::vector<int>& num)
 	{
 		if (num.empty()) {
 			return 0;
@@ -33,24 +24,19 @@ public:
 		return mergeTree(num, 0, num.size()-1);
 	}
 
-	TreeNode* mergeTree(vector<int>& num, int i, int j)
+	TreeNode* mergeTree(std::vector<int>& num, int i, int j)
 	{
-		if (i >= j)	{
+		if (i > j) return 0;
+		if (i == j)	{
 			TreeNode* pRoot = new TreeNode(num[i]);
 
 			return pRoot;
 		}
 
 		int mid = (i + j) / 2;
-		if (i + 1 == j) {
-			mid = j;
-		}
-
 		TreeNode* pRoot = new TreeNode(num[mid]);
 		pRoot->left = mergeTree(num, i, mid-1);
-		if (mid + 1 <= j) {
-			pRoot->right = mergeTree(num, mid+1, j);
-		}
+		pRoot->right = mergeTree(num, mid+1, j);
 
 		return pRoot;
 	}

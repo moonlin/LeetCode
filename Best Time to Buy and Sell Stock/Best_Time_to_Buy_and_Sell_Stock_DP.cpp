@@ -1,25 +1,16 @@
-/**************************
+/*****************************************************************************************
 
 Say you have an array for which the ith element is the price of a given stock on day i.
 
-If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), 
+If you were only permitted to complete at most one transaction 
+(ie, buy one and sell one share of the stock), 
 design an algorithm to find the maximum profit.
 
-**************************/
-
-#include <iostream>
-#include <vector>
-#include <string>
-#include <fstream>
-#include <queue>
-#include <map>
-
-using namespace std;
-typedef unsigned int uint;
+*****************************************************************************************/
 
 class Solution {
 public:
-	int maxProfit(vector<int> &prices) 
+	int maxProfit(vector<int>& prices) 
 	{
 		if (prices.empty()) {
 			return 0;
@@ -28,17 +19,31 @@ public:
 		return dp(prices);
 	}
 
-	int dp(vector<int> &prices)
+	int dp(vector<int>& prices)
 	{
 		int gmax = 0;
-		int max = prices[prices.size()-1];
-		for (int i = prices.size()-2; i >= 0; --i) {
-			max = std::max(prices[i+1], max);
+		int max = prices.back();
+		for (uint i = prices.size()-2; i >= 0; --i) {
 			gmax = std::max(gmax, max - prices[i]);
+			max = std::max(prices[i], max);
 		}
 
 		return gmax;
 	}
+
+
+	int dp2(vector<int>& prices)
+	{
+		int gmax = 0;
+		int min = prices.front();
+		for (uint i = 1; i < prices.size(); ++i) {
+			gmax = std::max(gmax, prices[i] - min);
+			min = std::min(min, prices[i]);
+		}
+
+		return gmax;
+	}
+
 };
 
 

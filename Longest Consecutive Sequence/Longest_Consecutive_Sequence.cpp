@@ -1,4 +1,4 @@
-/****
+/****************************************************************************
 
 Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
 
@@ -8,22 +8,11 @@ The longest consecutive elements sequence is [1, 2, 3, 4]. Return its length: 4.
 
 Your algorithm should run in O(n) complexity.
 
-***/
-
-#include <iostream>
-#include <vector>
-#include <string>
-#include <fstream>
-#include <queue>
-#include <map>
-
-using namespace std;
-typedef unsigned int uint;
-
+****************************************************************************/
 
 class Solution {
 public:
-	int longestConsecutive(vector<int> &num) 
+	int longestConsecutive(std::vector<int>& num) 
 	{
 		if (num.empty()) return 0;
 
@@ -32,7 +21,7 @@ public:
 			statics[num[i]] = 1;
 		}
 
-		int cnt = 1;
+		int gmax = 1;
 		std::map<int, int>::iterator iter = statics.begin();
 		for (; iter != statics.end(); ++iter) {
 			std::map<int, int>::iterator iterPre = iter;
@@ -40,23 +29,26 @@ public:
 			std::map<int, int>::iterator iterNext = ++iterTmp;
 			
 			if (iterNext == statics.end()) {
-				return cnt;
+				return gmax;
 			}
 
-			while (iterPre->first + 1 == iterNext->first) {
+			while (iterNext != statics.end() && iterPre->first + 1 == iterNext->first) {
 				iterNext->second += iterPre->second;
 				iterPre = iterNext++;
-				if (iterNext == statics.end()) {
-					return std::max(cnt, iterPre->second);
-				}
 			}
 
-			cnt = std::max(cnt, iterPre->second);
+			gmax = std::max(gmax, iterPre->second);
 			iter = iterPre;
 		}
 
-		return cnt;
+		return gmax;
 	}
+
+	int longestConsecutive(std::vector<int>& num)
+	{
+
+	}
+	
 };
 
 

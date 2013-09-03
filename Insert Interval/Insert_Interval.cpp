@@ -14,13 +14,27 @@ This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10].
 
 ****************************************************/
 
+struct Interval {
+ 	int start;
+ 	int end;
+ 	Interval() : start(0), end(0) {}
+ 	Interval(int s, int e) : start(s), end(e) {}
+};
+
+struct comp {
+	bool operator()(const Interval& lhs, const Interval& rhs) 
+	{
+		return lhs.start < rhs.start;
+	}
+};
+
 class Solution {
 public:
     std::vector<Interval> insert(std::vector<Interval>& intervals, Interval newInterval)
 	{
 		std::vector<Interval> ret;
 		intervals.push_back(newInterval);
-		std::sort(intervals.begin(), intervals.end(), comp);
+		std::sort(intervals.begin(), intervals.end(), comp());
 		ret.push_back(intervals[0]);
 		for (uint i = 1; i < intervals.size(); ++i) {
 			if (ret.back().end < intervals[i].start) ret.push_back(intervals[i]);
@@ -30,8 +44,9 @@ public:
 		return ret;
 	}
 
+	/*** the other methods...
 	static bool comp(const Interval& lhs, const Interval& rhs) 
 	{
 		return lhs.start < rhs.start;
-	}
+	} ***/
 };

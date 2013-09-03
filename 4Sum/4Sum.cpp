@@ -4,7 +4,7 @@ Given an array S of n integers, are there elements a, b, c, and d in S such that
 
 Note:
 
-    Elements in a quadruplet (a,b,c,d) must be in non-descending order. (ie, a ? b ? c ? d)
+    Elements in a quadruplet (a,b,c,d) must be in non-descending order. (ie, a < b < c < d)
     The solution set must not contain duplicate quadruplets.
 
     For example, given array S = {1 0 -1 0 -2 2}, and target = 0.
@@ -22,6 +22,7 @@ public:
 	{
 		std::vector<std::vector<int>> ret;
 		std::sort(num.begin(), num.end());
+		std::vector<int> oneItem;
 		for (uint i = 0; i < num.size(); ++i) {
 			int plus1 = num[i];
 			for (uint j = i+1; j < num.size(); ++j) {
@@ -33,10 +34,10 @@ public:
 					if (plus1 + plus2 + num[l] + num[l+1] > target) break;
 
 					int sum = plus1 + plus2 + num[l] + num[r];
-					if (sum > target) --r;
-					else if (sum < target) ++l;
+					if (sum < target) ++l;
+					else if (sum > target) --r;
 					else {
-						std::vector<int> oneItem;
+						oneItem.clear();
 						oneItem.push_back(num[i]);
 						oneItem.push_back(num[j]);
 						oneItem.push_back(num[l]);

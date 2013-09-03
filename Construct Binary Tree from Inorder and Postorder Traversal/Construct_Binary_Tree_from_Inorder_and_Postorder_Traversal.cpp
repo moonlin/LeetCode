@@ -1,21 +1,11 @@
-/******************************************
+/*****************************************************************************
 
 Given inorder and postorder traversal of a tree, construct the binary tree.
 
 Note:
 You may assume that duplicates do not exist in the tree.
 
-******************************************/
-
-#include <iostream>
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-typedef unsigned int uint;
+*****************************************************************************/
 
 struct TreeNode {
 	int val;
@@ -26,13 +16,13 @@ struct TreeNode {
 
 class Solution {
 public:
-	TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder)
+	TreeNode* buildTree(std::vector<int>& inorder, std::vector<int>& postorder)
 	{
 		this->traverse(postorder, 0, postorder.size()-1, inorder, 0, inorder.size()-1);
 	}
 
-	TreeNode* traverse(vector<int>& postorder, int post_s, int post_e,
-		vector<int>& inorder, int in_s, int in_e)
+	TreeNode* traverse(std::vector<int>& postorder, int post_s, int post_e,
+		std::vector<int>& inorder, int in_s, int in_e)
 	{
 		if (in_s > in_e || post_s > post_e) return 0;
 
