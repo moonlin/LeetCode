@@ -1,5 +1,4 @@
 /**************************************
-
 Implement wildcard pattern matching with support for '?' and '*'.
 
 '?' Matches any single character.
@@ -20,8 +19,7 @@ isMatch("ab", "?*") ? true
 isMatch("aab", "c*a*b") ? false
 
 **************************************/
-
-// Run Status: Time Limit Exceeded...
+//Run Status: Time Limit Exceeded...
 
 class Solution {
 public:
@@ -33,8 +31,7 @@ public:
 			return isEqual(s, p)? isMatch(s+1, p+1): false;
 		}
 
-		const char* ptr = s;
-		for (; *ptr; ++ptr) {
+		for (const char* ptr = s; *ptr; ++ptr) {
 			if (isMatch(ptr+1, p+1)) return true;
 		}
 
@@ -45,4 +42,5 @@ public:
 	{
 		return (*c1 == *c2) || (*c1 != '\0' && *c2 == '?');
 	}
+
 };

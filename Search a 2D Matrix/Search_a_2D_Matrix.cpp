@@ -1,5 +1,4 @@
 /***************************************************
-
 Write an efficient algorithm that searches for a value in an m x n matrix. 
 This matrix has the following properties:
 
@@ -22,8 +21,11 @@ Given target = 3, return true.
 
 class Solution {
 public:
-    bool searchMatrix(vector<vector<int>>& matrix, int target)
+    bool searchMatrix(std::vector<std::vector<int>>& matrix, int target)
 	{
+		if (matrix.empty()) return false;
+		if (matrix[0].empty()) return false;
+
 		int rowNum = matrix.size();
 		int colNum = matrix[0].size();
 
@@ -55,4 +57,5 @@ public:
 
 		return false;
 	}
+	
 };

@@ -9,15 +9,15 @@ class Solution {
 public:
     double findMedianSortedArrays(int A[], int m, int B[], int n)
 	{
-		vector<int> a(A, A + m);
-		vector<int> b(B, B + n);
+		std::vector<int> a(A, A + m);
+		std::vector<int> b(B, B + n);
 		if (m == 0) return getMedian(b);
 		if (n == 0) return getMedian(a);
 
 		return findMedianSortedArrays_impl(a, 0, a.size()-1, b, 0, b.size()-1);
 	}
 
-	double findMedianSortedArrays_impl(vector<int>& a, int as, int ae, vector<int>& b, int bs, int be)
+	double findMedianSortedArrays_impl(std::vector<int>& a, int as, int ae, std::vector<int>& b, int bs, int be)
 	{
 		if (as+1 >= ae || bs+1 >= be) {
 			vector<int> vec;
@@ -61,10 +61,9 @@ public:
 		}
 	}
 
-	double getMedian(vector<int>& vec)
+	double getMedian(std::vector<int>& vec)
 	{
 		int n = vec.size();
 		return (n%2)? vec[n/2]: (vec[n/2-1] + vec[n/2]) / 2.0;
 	}
 };
-

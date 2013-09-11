@@ -1,5 +1,4 @@
 /*****************************************************
-
 Given numRows, generate the first numRows of Pascal's triangle.
 
 For example, given numRows = 5,
@@ -20,6 +19,8 @@ public:
     std::vector<std::vector<int>> generate(int numRows)
 	{
 		std::vector<std::vector<int>> retTriangle;
+		if (numRows <= 0) return retTriangle;
+
 		retTriangle.resize(numRows);
 		for (int i = 0; i < numRows; ++i) {
 			retTriangle[i].assign(i+1, 1);

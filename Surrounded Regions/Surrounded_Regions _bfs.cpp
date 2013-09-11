@@ -1,4 +1,4 @@
-/***
+/***********************************************************************
 Given a 2D board containing 'X' and 'O', capture all regions surrounded by 'X'.
 A region is captured by flipping all 'O's into 'X's in that surrounded region .
 For example,
@@ -15,29 +15,23 @@ X X X X
 X X X X
 X O X X
 
-***/
-
-
-#include <iostream>
-#include <vector>
-#include <string>
-
-using namespace std;
-typedef unsigned int uint;
-
+***********************************************************************/
 
 class Solution {
 public:
-	void solve(vector<vector<char>>& board)
+	void solve(std::vector<std::vector<char>>& board)
 	{
-		// board_ = board;
+		if (board.empty()) return;
+		if (board[0].empty()) return;
+
+		board_.swap(board);
 		for (int i = 0; i < board_.size(); ++i)
 		{
 			bfs(i, 0);
-			bfs(i, board_.size()-1);
+			bfs(i, board_[0].size()-1);
 		}
 
-		for (int j = 0; j < board_.size(); ++j)
+		for (int j = 0; j < board_[0].size(); ++j)
 		{
 			bfs(0, j);
 			bfs(board_.size()-1, j);
@@ -69,18 +63,12 @@ public:
 
 	void bfs(int i, int j)
 	{
-		if (i >= board_.size() || j >= board_.size()
-			|| i < 0 || j < 0) 
-		{
-			return;
-		}
-
+		if (!isValid(i, j)) return;
 		if (board_[i][j] != 'O') return;
 
 		board_[i][j] = '#';
 		std::queue<std::pair<int, int>> nodeQue;
-		std::pair<int, int> node(i, j);
-		nodeQue.push(node);
+		nodeQue.push(std::pair<int, int> (i, j));
 		while (!nodeQue.empty())
 		{
 			std::pair<int, int> node = nodeQue.front();
@@ -111,50 +99,6 @@ public:
 
 	}
 
-	void init()
-	{
-		string str;
-		ifstream inFile;
-		inFile.open("b.txt");
-		string line;
-		while(getline(inFile,line)) {
-			str += line;
-		}
-
-		int level = 0;
-		size_t pos_s = str.find('#');
-		while (pos_s != std::string::npos)
-		{
-			size_t pos_e = str.find('#', pos_s+1);
-			if (pos_e != std::string::npos)
-			{
-				string cut = str.substr(pos_s+1, pos_e-pos_s-1);
-				for (int i = 0; i < cut.size(); ++i) {
-					board_.resize(level+1);
-					board_[level].push_back(cut[i]);
-				}
-			}
-
-			pos_s = str.find('#', pos_e+1);
-			++level;
-		}
-	}
-
 private:
-
-	vector<vector<char>> board_;
+	std::vector<std::vector<char>> board_;
 };
-
-
-int main()
-{
-	Solution solve;
-
-	vector<vector<char>> board;
-
-	solve.init();
-	solve.solve(board);
-
-	getchar();
-	return 0;
-}

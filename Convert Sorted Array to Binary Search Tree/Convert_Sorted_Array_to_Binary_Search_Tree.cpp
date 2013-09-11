@@ -12,7 +12,6 @@ struct TreeNode {
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-
 class Solution {
 public:
 	TreeNode* sortedArrayToBST(std::vector<int>& num)
@@ -42,17 +41,3 @@ public:
 	}
 
 };
-
-int main()
-{	
-	Solution solve;
-	vector<int> num;
-	for (int i = 0; i < 8; ++i) {
-		num.push_back(i+1);
-	}
-
-	TreeNode* root = solve.sortedArrayToBST(num);
-
-	getchar();
-	return 0;
-}

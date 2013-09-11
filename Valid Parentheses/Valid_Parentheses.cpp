@@ -8,16 +8,6 @@ The brackets must close in the correct order,
 
 ********************************************/
 
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-
-typedef unsigned int uint;
-
 class Solution {
 public:
 	 bool isValid(const std::string& str) 
@@ -30,7 +20,9 @@ public:
 			}
 
 			if (token.empty()) return false;
-			if (validPair(str[i], token.top())) token.pop();
+			if (validPair(str[i], token.top()) == false) return false;
+
+			token.pop();
 		}
 
 		return token.empty();
@@ -49,6 +41,5 @@ int main()
 	Solution solve;
 	bool ret = solve.isValid(str);
 
-	getchar();
 	return 0;
 }

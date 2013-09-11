@@ -16,43 +16,38 @@ Given encoded message "12", it could be decoded as "AB" (1 2) or "L" (12).
 The number of ways decoding "12" is 2.
 
 **************************************************************************/
- 
+//Run Status: Accepted!
+//Program Runtime: 372 milli secs
+
 // not effective method...
 class Solution {
 public:
-	int numDecodings(string& str)
+	int numDecodings(const string& str)
 	{
 		if (str.empty()) return 0;
 
-		memoSingle.clear();
-		memoSingle.resize(str.size());
-		for (int i = 0; i < str.size(); ++i) {
-			memoSingle[i] = 0;
-		}
+		this->memo = std::vector<int> (str.size()+1, 0);
 
-		memoDouble.clear();
-		memoDouble.resize(str.size());
-		for (int i = 0; i < str.size(); ++i) {
-			memoDouble[i] = 0;
-		}
 
 		return this->numDecodings_impl(str, 0);
 	}
 
-	int numDecodings_impl(string& str, int pos)
+	int numDecodings_impl(const string& str, int pos)
 	{
 		if (pos >= str.size()) return 1;
 
+		if (memo[pos]) return memo[pos];
+
 		int total = 0;
 		if (valid(str, pos)) {
-			total = memoDouble[pos]? memoDouble[pos]: memoDouble[pos] = numDecodings_impl(str, pos+2);
+			total += numDecodings_impl(str, pos+2);
 		}
 
 		if (str[pos] != '0') {
-			total += memoSingle[pos]? memoSingle[pos]: memoSingle[pos] = numDecodings_impl(str, pos+1);
+			total += numDecodings_impl(str, pos+1);
 		}
 
-		return total;
+		return memo[pos] = total;
 	}
 
 
@@ -74,9 +69,8 @@ public:
 		return true;
 	}
 
-private: //we should use two memo vector...
-	std::vector<int> memoSingle;
-	std::vector<int> memoDouble;
+private: 
+	std::vector<int> memo;
 };
 
 int main()

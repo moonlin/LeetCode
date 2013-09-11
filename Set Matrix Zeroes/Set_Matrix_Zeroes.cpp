@@ -1,5 +1,4 @@
 /*************************************************************
-
 Given a m x n matrix, if an element is 0, set its entire row and column to 0. 
 Do it in place.
 Follow up:
@@ -16,6 +15,7 @@ public:
 	void setZeroes(std::vector<std::vector<int>>& matrix)
 	{
 		if (matrix.empty()) return;
+		if (matrix[0].empty()) return;
 
 		bool rowZeroFlag = false;
 		for (uint i = 0; i < matrix.size(); ++i) {
@@ -57,4 +57,5 @@ public:
 		}
 
 	}
+
 };

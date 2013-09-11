@@ -17,12 +17,12 @@ public:
 	{
 		std::vector<int> dp(n, 0);
 		dp[0] = A[0];
-		int max = dp[0];
+		int gmax = dp[0];
 		for (int i = 1; i < n; ++i) {
 			dp[i] = A[i] + (dp[i-1]>0? dp[i-1]: 0);
-			max = std::max(max, dp[i]);
+			gmax = std::max(gmax, dp[i]);
 		}
 
-		return max;
+		return gmax;
 	}          
 };

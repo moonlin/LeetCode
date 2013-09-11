@@ -1,5 +1,4 @@
-/**************************************
-
+/****************************************************************************
 Given a collection of integers that might contain duplicates, S, return all possible subsets.
 
 Note:
@@ -18,66 +17,41 @@ If S = [1,2,2], a solution is:
   []
 ]
 
-**************************************/
-
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-
-typedef unsigned int uint;
+****************************************************************************/
  
 class Solution {
 public:
-	vector<vector<int>> subsetsWithDup(std::vector<int>& sub)
+    std::vector<std::vector<int>> subsetsWithDup(std::vector<int>& sub)
 	{
 		if (sub.empty()) {
-			return vector<vector<int>> ();
+			return std::vector<std::vector<int>> ();
 		}
 
-		subsets.clear();
+		subs.clear();
 		std::sort(sub.begin(), sub.end());
-		vector<int> result;
-		subsetsWithDup_impl(sub, 0, result);
-		return subsets;
+
+		std::vector<int> oneSolution;
+		subsetsWithDup_impl(sub, 0, oneSolution);
+		return subs;
 	}
 
-	void subsetsWithDup_impl(vector<int>& sub, int pos, 
-							vector<int>& result, bool backtrace = false)
+	void subsetsWithDup_impl(std::vector<int>& sub, int pos,
+		std::vector<int>& oneSolution)
 	{
-		if (pos >= sub.size()) return;
-		if (backtrace != true) {
-			subsets.push_back(result);
+		if (pos >= sub.size()) {
+			subs.push_back(oneSolution);
+			return;
 		}
 
-		result.push_back(sub[pos]);
-		subsetsWithDup_impl(sub, pos+1, result);
-		if (pos+1 == sub.size()) {
-			subsets.push_back(result);
-		}
+		oneSolution.push_back(sub[pos]);
+		subsetsWithDup_impl(sub, pos+1, oneSolution);
+		oneSolution.pop_back();
 
-		result.pop_back();
 		for (++pos; pos < sub.size() && sub[pos] == sub[pos-1]; ++pos);
+		subsetsWithDup_impl(sub, pos, oneSolution);
 
-		subsetsWithDup_impl(sub, pos, result, true);
 	}
 
-	vector<vector<int>> subsets;
+private:
+	std::vector<std::vector<int>> subs;
 };
-
-int main()
-{	
-	vector<int> num;
-	num.push_back(4);
-	num.push_back(1);
-	num.push_back(0);
-
-	Solution solve;
-	solve.subsetsWithDup(num);
-
-	getchar();
-	return 0;
-}

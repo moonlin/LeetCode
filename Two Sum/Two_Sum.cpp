@@ -1,5 +1,4 @@
 /************************************
-
 Given an array of integers, find two numbers such that they add up to a specific target number.
 
 The function twoSum should return indices of the two numbers such that 
@@ -13,33 +12,25 @@ Output: index1=1, index2=2
 
 ************************************/
 
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-
-typedef unsigned int uint;
-
-bool cmp(std::pair<int, int> lop, std::pair<int, int> rop)
-{
-	return lop <= rop? true: false;
-}
+struct comp {
+	bool operator()(const std::pair<int, int>& lop, const std::pair<int, int>& rop)
+	{
+		return lop.first <= rop.first;
+	}
+};
 
 class Solution {
 public:
-	vector<int> twoSum(vector<int>& numbers, int target) 
+	std::vector<int> twoSum(std::vector<int>& numbers, int target) 
 	{
-		vector<std::pair<int, int>> nums;
+		std::vector<std::pair<int, int>> nums;
 		nums.reserve(numbers.size());
 		for (int i = 0; i < numbers.size(); ++i) {
-			nums.push_back(std::pair<int, int> (numbers[i], i+1));
+			nums.push_back(std::pair<int, int> (numbers[i], i));
 		}
 
-		vector<int> result;
-		std::sort(nums.begin(), nums.end(), cmp);
+		std::vector<int> result;
+		std::sort(nums.begin(), nums.end(), comp());
 		uint i = 0;
 		uint j = nums.size()-1;
 		while (i < j) {
@@ -48,8 +39,8 @@ public:
 			else {
 				int min = std::min(nums[i].second, nums[j].second);
 				int max = std::max(nums[i].second, nums[j].second);
-				result.push_back(min);
-				result.push_back(max);
+				result.push_back(min+1);
+				result.push_back(max+1);
 
 				return result;
 			}
@@ -57,20 +48,3 @@ public:
 	}      
 
 };
-
-int main()
-{
-	std::vector<int> num;
-	num.push_back(2);
-	num.push_back(9);
-	num.push_back(1);
-	num.push_back(8);
-	num.push_back(7);
-	num.push_back(10);
-
-	Solution solve;
-	vector<int> ret = solve.twoSum(num, 16);
-
-	getchar();
-	return 0;
-}

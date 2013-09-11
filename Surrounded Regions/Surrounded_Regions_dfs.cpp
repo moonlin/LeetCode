@@ -1,4 +1,4 @@
-/***
+/***********************************************************************
 Given a 2D board containing 'X' and 'O', capture all regions surrounded by 'X'.
 A region is captured by flipping all 'O's into 'X's in that surrounded region .
 For example,
@@ -14,80 +14,55 @@ X X X X
 X X X X
 X X X X
 X O X X
-
-***/
-
-
-#include <iostream>
-#include <vector>
-#include <string>
-
-using namespace std;
-typedef unsigned int uint;
-
+***********************************************************************/
 
 class Solution {
 public:
-    void solve(vector<vector<char>>& board)
+    void solve(std::vector<std::vector<char>>& board)
 	{
-		board_ = board;
-		for (int i = 0; i < board_.size(); ++i)
+		if (board.empty()) return;
+		if (board[0].empty()) return;
+
+		for (uint i = 0; i < board.size(); ++i)
 		{
-			dfs(i, 0);
-			dfs(i, board_.size()-1);
+			dfs(board, i, 0);
+			dfs(board, i, board.size()-1);
 		}
 
-		for (int j = 0; j < board_.size(); ++j)
+		for (uint j = 0; j < board[0].size(); ++j)
 		{
-			dfs(0, j);
-			dfs(board_.size()-1, j);
+			dfs(board, 0, j);
+			dfs(board, board.size()-1, j);
 		}
 
-		for (uint i = 0; i < board_.size(); ++i) {
-			for (uint j = 0; j < board_.size(); ++j) {
-				if (board_[i][j] == 'O') {
-					board_[i][j] = 'X';
-				} else if (board_[i][j] == '#') {
-					board_[i][j] = 'O';
+		for (uint i = 0; i < board.size(); ++i) {
+			for (uint j = 0; j < board[0].size(); ++j) {
+				if (board[i][j] == 'O') {
+					board[i][j] = 'X';
+				} else if (board[i][j] == '#') {
+					board[i][j] = 'O';
 				}
 			}
 		}
 	
-		board.swap(board_);
 	}
 
-	void dfs(int i, int j)
+	void dfs(std::vector<std::vector<char>>& board, int i, int j)
 	{
-		if (i >= board_.size() || j >= board_.size()
-			|| i < 0 || j < 0) 
+		if (i < 0 || i >= board.size() 
+				|| j < 0 || j >= board[0].size())
 		{
 			return;
 		}
 
-		if (board_[i][j] != 'O') return;
+		if (board[i][j] != 'O') return;
 
-		board_[i][j] = '#';
+		board[i][j] = '#';
 
-		dfs(i-1, j);
-		dfs(i, j-1);
-		dfs(i+1, j);
-		dfs(i, j+1);
+		dfs(board, i-1, j);
+		dfs(board, i, j-1);
+		dfs(board, i+1, j);
+		dfs(board, i, j+1);
 	}
 
-private:
-
-	vector<vector<char>> board_;
 };
-
-
-int main()
-{
-	Solution solve;
-
-	vector<vector<char>> board;
-
-	solve.solve(board);
-
-	getchar();
-	return 0;
-}

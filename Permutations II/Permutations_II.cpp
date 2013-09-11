@@ -13,6 +13,7 @@ public:
 	std::vector<std::vector<int>> permuteUnique(std::vector<int>& num)
 	{
 		collection.clear();
+		std::sort(num.begin(), num.end());
 		this->permuteUnique_impl(num, 0);
 
 		return this->collection;
@@ -35,6 +36,26 @@ public:
 			numSet.insert(num[i]);
 			std::swap(num[pos], num[i]);
 			permuteUnique_impl(num, pos+1);
+			std::swap(num[pos], num[i]);
+		}
+	}
+
+	//Run Status: Wrong Answer
+	void permuteUnique_impl2(std::vector<int>& num, uint pos)
+	{
+		if (pos >= num.size()-1) {
+			this->collection.push_back(num);
+
+			return;
+		}
+
+		permuteUnique_impl2(num, pos+1);
+
+		for (int i = pos+1; i < num.size(); ++i) {
+			if (num[i-1] == num[i]) continue;
+
+			std::swap(num[pos], num[i]);
+			permuteUnique_impl2(num, pos+1);
 			std::swap(num[pos], num[i]);
 		}
 	}

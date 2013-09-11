@@ -16,14 +16,16 @@ Given encoded message "12", it could be decoded as "AB" (1 2) or "L" (12).
 The number of ways decoding "12" is 2.
 
 **************************************************************************/
- 
+//Run Status: Accepted!
+//Program Runtime: 16 milli secs
+
 class Solution {
 public:
-	int numDecodings(const string& str)
+	int numDecodings(const std::string& str)
 	{
 		if (str.empty()) return 0;
 
-		vector<int> dp(str.size(), 0);
+		std::vector<int> dp(str.size(), 0);
 		if (str[0] != '0') dp[0] = 1;
 		if (valid(str, 0)) dp[1] += 1;
 		if (str[1] != '0') dp[1] += dp[0];
@@ -50,8 +52,7 @@ public:
 			++loop;
 		}
 
-		if (num > 26 || num < 1) return false;
-		return true;
+		return (num <= 26 && num >= 1);
 	}
 
 };
@@ -66,4 +67,3 @@ int main()
 	getchar();
 	return 0;
 }
-

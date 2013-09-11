@@ -11,16 +11,6 @@ return 1->2->2->4->3->5.
 
 *******************************************/
 
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-
-typedef unsigned int uint;
-
 struct ListNode {
 	int val;
 	ListNode *next;
@@ -43,7 +33,6 @@ public:
 		if (pIndex == 0) return head;
 		ListNode* preIndex = pIndex;
 		pIndex = pIndex->next;
-		if (pIndex == 0) return head;
 
 		while (pIndex) {
 			for (; pIndex && pIndex->val >= val; preIndex = pIndex, 

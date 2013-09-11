@@ -35,16 +35,14 @@ public:
 			return pRoot;
 		}
 
-		uint numNode = 0;
-		ListNode* pLeft = head;
-		while (pLeft) {
-			pLeft = pLeft->next;
-			++numNode;
-		}
+		ListNode* pFast = head;
+		ListNode* pLeft = 0;
+		while (pFast && pFast->next) {
+			if (pLeft == 0) pLeft = pFast;
+			else pLeft = pLeft->next;
 
-		pLeft = head;
-		for (uint i = 0; i < numNode/2 - 1; ++i) {
-			pLeft = pLeft->next;
+			pFast = pFast->next;
+			if (pFast) pFast = pFast->next;
 		}
 
 		ListNode* pNode = pLeft->next;
@@ -60,4 +58,3 @@ public:
 	}
 
 };
-

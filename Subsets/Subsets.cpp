@@ -1,5 +1,4 @@
-/*************************************
-
+/*************************************************************************
 Given a set of distinct integers, S, return all possible subsets.
 
 Note:
@@ -20,67 +19,38 @@ If S = [1,2,3], a solution is:
   []
 ]
 
-*************************************/
-
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-
-typedef unsigned int uint;
+*************************************************************************/
  
 class Solution {
 public:
-	vector<vector<int>> subsets(vector<int>& sub)
+    std::vector<std::vector<int>> subsets(std::vector<int>& sub)
 	{
 		if (sub.empty()) {
-			return vector<vector<int>> ();
+			return std::vector<std::vector<int>> ();
 		}
 
 		subs.clear();
 		std::sort(sub.begin(), sub.end());
-		vector<int> result;
-		subsetsWithDup_impl(sub, 0, result);
+
+		std::vector<int> oneSolution;
+		subsetsWithDup_impl(sub, 0, oneSolution);
 		return subs;
 	}
 
-	void subsetsWithDup_impl(vector<int>& sub, int pos, 
-		vector<int>& result, bool backtrace = false)
+	void subsetsWithDup_impl(std::vector<int>& sub, int pos,
+		std::vector<int>& oneSolution)
 	{
-		if (pos >= sub.size()) return;
-		if (backtrace != true) {
-			subs.push_back(result);
+		if (pos >= sub.size()) {
+			subs.push_back(oneSolution);
+			return;
 		}
 
-		result.push_back(sub[pos]);
-		subsetsWithDup_impl(sub, pos+1, result);
-		if (pos+1 == sub.size()) {
-			subs.push_back(result);
-		}
-
-		result.pop_back();
-		++pos;
-
-		subsetsWithDup_impl(sub, pos, result, true);
+		subsetsWithDup_impl(sub, pos+1, oneSolution);
+		oneSolution.push_back(sub[pos]);
+		subsetsWithDup_impl(sub, pos+1, oneSolution);
+		oneSolution.pop_back();
 	}
 
-	vector<vector<int>> subs;
+private:
+	std::vector<std::vector<int>> subs;
 };
-
-int main()
-{	
-	vector<int> num;
-	num.push_back(1);
-	num.push_back(2);
-	num.push_back(3);
-
-	Solution solve;
-	solve.subsets(num);
-
-	getchar();
-	return 0;
-}
-

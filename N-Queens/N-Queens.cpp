@@ -1,6 +1,6 @@
 /****************************************************
 
-The n-queens puzzle is the problem of placing n queens on an n?n chessboard such that no two queens attack each other.
+The n-queens puzzle is the problem of placing n queens on an n*n chessboard such that no two queens attack each other.
 
 Given an integer n, return all distinct solutions to the n-queens puzzle.
 
@@ -26,43 +26,40 @@ There exist two distinct solutions to the 4-queens puzzle:
 
 class Solution {
 public:
-    vector<vector<string>> solveNQueens(int n)
+    std::vector<std::vector<std::string>> solveNQueens(int n)
 	{
 		queues.clear();
 
-		vector<int> oneQue(n, -1);
+		std::vector<int> oneQue(n, -1);
 		this->solveNQueens_impl(oneQue, n, 0);
 		return queues;
 	}
 
-	void solveNQueens_impl(vector<int>& oneQue, int n, int level) 
+	void solveNQueens_impl(std::vector<int>& oneQue, int n, int level) 
 	{
 		if (level >= n) {
-			vector<string> vec;
+			std::vector<std::string> oneSolution;
 			for (uint i = 0; i < n; ++i) {
-				string level;
-				for (uint j = 0; j < n; ++j) {
-					if (j == oneQue[i]) level += 'Q';
-					else level += '.';
-				}
+				std::string level(n, '.');
+				level[oneQue[i]] = 'Q';
 
-				vec.push_back(level);
+				oneSolution.push_back(level);
 			}
 
-			queues.push_back(vec);
+			queues.push_back(oneSolution);
 			return;
 		}
 
-		for (int i = 0; i < n; ++i) {
-			if (!judgePlaced(oneQue, level, i)) continue;
+		for (int pos = 0; pos < n; ++pos) {
+			if (!judgePlaced(oneQue, level, pos)) continue;
 
-			setOneQueue(oneQue, level, i);
+			oneQue[level] = pos;
 			solveNQueens_impl(oneQue, n, level+1);
-			setOneQueue(oneQue, level, i, true);
+			oneQue[level] = -1;	
 		}
 	}
 
-	bool judgePlaced(vector<int>& oneQue, int level, int pos)
+	bool judgePlaced(std::vector<int>& oneQue, int level, int pos)
 	{
 		for (int i = 0; i < level; ++i) {
 			if (oneQue[i] == pos || abs(i-level) == abs(oneQue[i]-pos)) return false;
@@ -70,13 +67,7 @@ public:
 
 		return true;
 	}
-
-	void setOneQueue(vector<int>& oneQue, int level, int pos, bool bt = false)
-	{
-		bt? (oneQue[level] = -1): (oneQue[level] = pos);
-	}
        
 private:
-	vector<vector<string>> queues;
+	std::vector<std::vector<std::string>> queues;
 };
-

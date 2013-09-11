@@ -55,7 +55,7 @@ public:
 	bool isScramble_impl(std::string& s1, std::string& s2, 
 								uint l1, uint r1, uint l2, uint r2)
 	{
-		if (l1 == r1 && l2 == r2) return s1[l1] == s2[l2]? true: false;
+		if (l1 == r1 && l2 == r2) return s1[l1] == s2[l2];
 		if (l1+1 == r1 && l2+1 == r2) {
 			if (s1[l1] == s2[r2] && s1[r1] == s2[l2]) return true;
 			if (s1[l1] == s2[l2] && s1[r1] == s2[r2]) return true;

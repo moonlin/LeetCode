@@ -1,4 +1,4 @@
-/***
+/*******************************************************************************
 Given a string s, partition s such that every substring of the partition is a palindrome.
 Return all possible palindrome partitioning of s.
 For example, given s = "aab",
@@ -9,22 +9,12 @@ Return
     ["a","a","b"]
   ]
 
-***/
-
-#include <iostream>
-#include <vector>
-#include <string>
-
-using namespace std;
-
-typedef unsigned int uint;
+*******************************************************************************/
 
 class Solution {
 public:
-	vector<vector<string> > partition(string s) {
-		// Start typing your C/C++ solution below
-		// DO NOT write int main() function
-		
+	std::vector<std::vector<std::string>> partition(const string& s) 
+	{
 		result.clear();
 		vector<string> tmpResult;
 		dfs(s, 0, tmpResult);
@@ -32,21 +22,7 @@ public:
 		return result;
 	}
 
-	bool isPalindrome(const string& str, uint i, uint j)
-	{
-		while (i < j)
-		{
-			if (str[i] != str[j])
-				return false;
-
-			++i;
-			--j;
-		}
-
-		return true;
-	}
-
-	void dfs(const string& str, uint start, vector<string>& tmpResult)
+	void dfs(const string& str, uint start, std::vector<std::string>& tmpResult)
 	{
 		if (start  >= str.size())
 		{
@@ -66,56 +42,20 @@ public:
 		}
 	}
 
+	bool isPalindrome(const string& str, uint i, uint j)
+	{
+		while (i < j)
+		{
+			if (str[i] != str[j])
+				return false;
+
+			++i;
+			--j;
+		}
+
+		return true;
+	}
+
 private:
-	vector<vector<string> > result;
+	std::vector<std::vector<std::string>> result;
 };
-
-
-int main()
-{
-	string str = "coder";
-	Solution solve;
-	vector<vector<string> > result = solve.partition(str);
-
-	uint minCut = str.size();
-	vector<uint> minCutIndex;
-
-	for (uint i = 0; i < result.size(); ++i)
-	{
-		for (uint j = 0; j < result[i].size(); ++j)
-		{
-			std::cout <<result[i][j] <<"  ";
-		}
-
-		if (minCut > result[i].size())
-		{
-			minCut = result[i].size();	
-		}
-		
-		std::cout <<'\n';
-	}
-
-	for (uint i = 0; i < result.size(); ++i)
-	{
-		if (minCut == result[i].size())
-			minCutIndex.push_back(i);
-	}
-
-	std::cout <<"\n\nSolution Num :" <<result.size() <<'\n';
-
-	for (uint i = 0; i < minCutIndex.size(); ++i)
-	{
-		for (uint j = 0; j < result[minCutIndex[i]].size(); ++j)
-		{
-			std::cout <<result[minCutIndex[i]][j] <<"  ";
-		}
-
-		std::cout <<'\n';
-	}
-	
-	std::cout <<"\nmin cut :" <<minCut-1 <<'\n';
-
-	getchar();
-	return 0;
-}
-

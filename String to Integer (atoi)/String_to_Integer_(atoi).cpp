@@ -23,16 +23,6 @@ If no valid conversion could be performed, a zero value is returned.
 If the correct value is out of the range of representable values, INT_MAX (2147483647) or INT_MIN (-2147483648) is returned.
 
 ***************************************************/
-
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-
-typedef unsigned int uint;
  
 class Solution {
 public:
@@ -42,6 +32,8 @@ public:
 		if (strNum.empty()) return 0;
 
 		std::string::size_type pos = strNum.find_first_not_of(" ");
+		if (pos == std::string::npos) return 0;
+
 		if (strNum[pos] != '+' && strNum[pos] != '-' && 
 					(strNum[pos] > '9' || strNum[pos] < '0'))
 		{
@@ -70,13 +62,3 @@ public:
 	}
 
 };
-
-int main()
-{	
-	std::string num("-2147483647");
-	Solution solve;
-	int digit = solve.atoi(num.c_str());
-
-	getchar();
-	return 0;
-}

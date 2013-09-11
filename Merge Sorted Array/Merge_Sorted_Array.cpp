@@ -8,16 +8,6 @@ The number of elements initialized in A and B are m and n respectively.
 
 ****************************************/
 
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-
-typedef unsigned int uint;
-
 class Solution {
 public:
 	void merge(int A[], int m, int B[], int n)
@@ -33,14 +23,3 @@ public:
 	}
 
 };
-
-int main()
-{
-	int A[] = {1, 3, 5, 6, 8, 0, 0, 0, 0, 0};
-	int B[] = {2, 4, 7, 9, 11};
-	Solution solve;
-	solve.merge(A, 5, B, 5);
-
-	getchar();
-	return 0;
-}

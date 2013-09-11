@@ -1,5 +1,4 @@
 /**************************************
-
 Implement wildcard pattern matching with support for '?' and '*'.
 
 '?' Matches any single character.
@@ -35,7 +34,7 @@ public:
 		if (*p == 0) return *s == 0;
 		if (validCheck(s, p) == false) return false;
 
-		vector<vector<bool>> dp(2, vector<bool>(strlen(p), false));
+		std::vector<std::vector<bool>> dp(2, std::vector<bool>(strlen(p), false));
 		if (*p != '*' && isEqual(s, p) == false) return false;
 		int s_len = strlen(s);
 		int p_len = strlen(p);
@@ -97,7 +96,7 @@ public:
 
 		ptr = c2;
 		int max2 = 0;
-		for (; *ptr ; ++ptr) {
+		for (; *ptr; ++ptr) {
 			if (*ptr != '*') ++max2;
 		}
 

@@ -1,5 +1,4 @@
 /***************************************************************
-
 Given a matrix of m x n elements (m rows, n columns), 
 return all elements of the matrix in spiral order.
 
@@ -24,6 +23,7 @@ public:
 	{
 		std::vector<int> ret;
 		if (matrix.empty()) return ret;
+		if (matrix[0].empty()) return ret;
 
 		matrix_.clear();
 		matrix_.swap(matrix);

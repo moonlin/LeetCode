@@ -13,14 +13,14 @@ class Solution {
 public:
 	std::vector<std::string> generateParenthesis(int n)
 	{
-		collection.clear();
-		string str;
+		this->collection.clear();
+		std::string str;
 		this->generateParenthesis_impl(str, n, 0);
 
-		return collection;
+		return this->collection;
 	}
 
-	void generateParenthesis_impl(string& pattern, int n, int left)
+	void generateParenthesis_impl(std::string& pattern, int n, int left)
 	{
 		if (n == left && pattern.size() == n*2) 
 		{

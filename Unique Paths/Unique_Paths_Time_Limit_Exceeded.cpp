@@ -16,16 +16,37 @@ public:
 	{
 		if (m == 0 || n == 0) return 0;
 
-		std::vector<std::vector<int>> dp(m, std::vector<int>(n, 0));
-		for (int i = 0; i < m; ++i) dp[i][0] = 1;
-		for (int j = 0; j < n; ++j) dp[0][j] = 1;
+		m_ = m;
+		n_ = n;
 
-		for (int i = 1; i < m; ++i) {
-			for (int j = 1; j < n; ++j)
-				dp[i][j] = dp[i-1][j] + dp[i][j-1];
-		}
-
-		return dp[m-1][n-1];
+		return uniquePaths_impl(0, 0);
 	}
 
+    int uniquePaths_impl(int x, int y)
+	{
+		if (x == m_-1 && y == n_-1) return 1;
+
+		int sum = 0;
+		if (validPlace(x+1, y)) {
+			sum += uniquePaths_impl(x+1, y);
+		}
+
+		if (validPlace(x, y+1)) {
+			sum += uniquePaths_impl(x, y+1);
+		}
+
+		return sum;
+	}
+	
+	bool validPlace(int x, int y)
+	{
+		if (x < 0 || x >= m_) return false;
+		if (y < 0 || y >= n_) return false;
+
+		return true;
+	}
+
+private:
+	int m_;
+	int n_;
 };

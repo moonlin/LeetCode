@@ -1,5 +1,4 @@
 /*******************************************
-
 Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
 
 For example, this binary tree is symmetric:
@@ -23,16 +22,6 @@ Bonus points if you could solve it both recursively and iteratively.
 
 *******************************************/
 
-#include <iostream>
-#include <vector>
-#include <string>
-#include <queue>
-#include <map>
-#include <stack>
-
-using namespace std;
-typedef unsigned int uint;
-
 struct TreeNode {
 	int val;
 	TreeNode *left;
@@ -42,7 +31,7 @@ struct TreeNode {
 
 class Solution {
 public:
-	bool isSymmetric(TreeNode *root)
+	bool isSymmetric(TreeNode* root)
 	{
 		if (root == 0) return true;
 

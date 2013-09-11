@@ -1,5 +1,4 @@
 /***************************************************************
-
 Given an integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
 
 For example,
@@ -25,6 +24,7 @@ public:
 		matrix_ = std::vector<std::vector<int>> (n, std::vector<int>(n, -1));
 		isUsed_ = std::vector<std::vector<bool>> (n, std::vector<bool>(n, false));
 		dfs(0, 0, Direction::RIGHT, 1, n*n);
+		
 		return matrix_;
 	}
 

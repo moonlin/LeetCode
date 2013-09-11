@@ -1,6 +1,7 @@
 /******************************************************************
-
-You are given a string, S, and a list of words, L, that are all of the same length. Find all starting indices of substring(s) in S that is a concatenation of each word in L exactly once and without any intervening characters.
+You are given a string, S, and a list of words, L, that are all of the same length. 
+Find all starting indices of substring(s) in S 
+that is a concatenation of each word in L exactly once and without any intervening characters.
 
 For example, given:
 S: "barfoothefoobarman"
@@ -10,6 +11,8 @@ You should return the indices: [0,9].
 (order does not matter).
 
 ******************************************************************/
+//Run Status: Accepted!
+//Program Runtime: 1744 milli secs
 
 class Solution {
 public:
@@ -23,7 +26,8 @@ public:
 
 		std::unordered_map<std::string, int> keyMap;
 		for (uint i = 0; i < lst.size(); ++i) {
-			if (keyMap.find(lst[i]) != keyMap.end()) ++keyMap[lst[i]];
+			auto iter = keyMap.find(lst[i]);
+			if (iter != keyMap.end()) ++iter->second;
 			else keyMap[lst[i]] = 1;
 		}
 
@@ -36,7 +40,6 @@ public:
 
 				if (--(iter->second) == 0) 
 					tmpKeyMap.erase(iter);
-
 			}
 
 			if (tmpKeyMap.empty()) ret.push_back(i);

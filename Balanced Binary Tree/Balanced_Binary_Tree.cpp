@@ -51,4 +51,3 @@ public:
 		return abs(lHeight-rHeight) < 2;
 	}
 };
-

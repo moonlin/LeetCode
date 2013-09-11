@@ -44,9 +44,4 @@ public:
 		return ret;
 	}
 
-	/*** the other methods...
-	static bool comp(const Interval& lhs, const Interval& rhs) 
-	{
-		return lhs.start < rhs.start;
-	} ***/
 };

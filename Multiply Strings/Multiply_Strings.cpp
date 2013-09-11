@@ -1,5 +1,4 @@
 /**********************************************************
-
 Given two numbers represented as strings, return multiplication of the numbers as a string.
 
 Note: The numbers can be arbitrarily large and are non-negative.
@@ -12,7 +11,6 @@ public:
 	{
 		std::string ret(num1.size()+num2.size(), '0');
 	
-    
 		for (int idx2 = num2.size()-1; idx2 >= 0; --idx2) {
 			int carry = 0;
 			int idx1 = -1;

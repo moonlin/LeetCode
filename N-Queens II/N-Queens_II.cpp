@@ -5,21 +5,24 @@ Follow up for N-Queens problem.
 Now, instead outputting board configurations, return the total number of distinct solutions.
 
 **********************************************/
+// Run Status: Accepted!
+// Program Runtime: 1620 milli secs
 
 class Solution {
 public:
     int totalNQueens(int n)
 	{
-		total = 0;
-		vector<int> oneQue(n, -1);
+		this->total = 0;
+		std::vector<int> oneQue(n, -1);
 		this->solveNQueens_impl(oneQue, n, 0);
-		return total;
+
+		return this->total;
 	}
 
-	void solveNQueens_impl(vector<int>& oneQue, int n, int level) 
+	void solveNQueens_impl(std::vector<int>& oneQue, int n, int level) 
 	{
 		if (level >= n) {
-			++total;
+			++this->total;
 			return;
 		}
 
@@ -28,6 +31,7 @@ public:
 
 			oneQue[level] = i;
 			solveNQueens_impl(oneQue, n, level+1);
+			oneQue[level] = -1; //needless
 		}
 	}
 

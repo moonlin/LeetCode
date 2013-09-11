@@ -43,33 +43,9 @@ public:
 	{
 		if (root == 0) return;
 		
-		preNode(root);
+		preNode2(root);
     }
 
-	TreeNode* preNode(TreeNode* node)
-	{		
-		TreeNode* root = node;
-		while (node->left == 0 && node->right) node = node->right;
-
-		if (node->left == 0 && node->right == 0) return root;
-
-		TreeNode* pLeft = preNode(node->left);
-
-		TreeNode* pRight = 0;
-		if (node->right) {
-			pRight = preNode(node->right);
-		}
-
-		node->left = 0;
-		node->right = pLeft;
-		while (pLeft->right) pLeft = pLeft->right;
-
-		pLeft->right = pRight;
-
-		return root;
-	}
-
-	// more clearly
 	TreeNode* preNode2(TreeNode* node)
 	{
 		if (node == 0) return 0;
@@ -79,8 +55,8 @@ public:
 
 		if (node->left == 0 && node->right == 0) return root;
 
-		TreeNode* pLeft = preNode(node->left);
-		TreeNode* pRight = preNode(node->right);
+		TreeNode* pLeft = preNode2(node->left);
+		TreeNode* pRight = preNode2(node->right);
 
 		node->left = 0;
 		node->right = pLeft;
